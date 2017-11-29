@@ -33,6 +33,8 @@ public class Test {
 			AdSetService adSetService = context.getBean("adSetService", AdSetService.class);
 			StatService statService = context.getBean("statService", StatService.class);
 			
+			//comentario de pruebas
+			
 //			List<Campaign> campaigns = campaignService.findAll();
 //			logger.info("[m:main]: campaigns.size(): " + campaigns.size());
 
