@@ -1,0 +1,30 @@
+<div>
+	<h1>Campaigns</h1>
+	<div><input type="text" id="campaignName"/><input type="button" id="newCampaign" value="New Campaign"/></div>
+	<table border="1">
+	 <thead>
+	  <tr>
+	  	<th>Id</th>
+	     <th>Name</th>
+	     <th>Impressions</th>
+	  </tr>
+	 </thead>
+	 <tbody>
+	 	<tr ng-repeat="campaign in model.campaigns">
+		 	<td>
+		 	{{campaign.id}}
+		 	</td>
+		 	<td>
+		 	<span id="{{campaign.id}}" ng-click="setForEditCampaign(campaign.id)">
+		 		<span id="oldValue-{{campaign.id}}-span">{{campaign.name}}</span>
+		 		<span id="newValue-{{campaign.id}}-span" style="display:none"><input type="text" id="newValue-{{campaign.id}}"/><input type="button" value="Accept" ng-click="updateCampaign(campaign.id)"/></span>
+		 	</span>
+		 	</td>
+		 	<td>
+		 	{{campaign.impressions}}
+		 	</td>
+			<td><input type="button" value="Delete" ng-click="deleteCampaign(campaign.id)"/></td>		 	
+	 	</tr>
+	 </tbody>
+	</table>	
+</div>

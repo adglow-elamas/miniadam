@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+    http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+	 <entity class="domain.AdSet">
+        <named-native-query name="getAdSetsWithStat" result-set-mapping="getAdSetsWithStatMapping">
+            <query><![CDATA[
+            SELECT ADS.ADS_ID, ADS.ADS_NAME, SUM(STA_IMPRESSIONS) AS IMPRESSIONS  
+			  		FROM ADSETS ADS  
+			  		LEFT JOIN ADS AD ON ADS.ADS_ID = AD.ADS_ID  
+			  		LEFT JOIN AD_STATS STA ON AD.AD_ID = STA.AD_ID  
+			  		GROUP BY ADS.ADS_ID
+            ]]></query>
+        </named-native-query>
+        <named-native-query name="getAdSetsWithStat.count" result-set-mapping="getAdSetsWithStatMapping.count">
+            <query><![CDATA[
+            SELECT COUNT(*) as CNT FROM ADSETS
+            ]]></query>
+        </named-native-query>
+		<sql-result-set-mapping name="getAdSetsWithStatMapping">
+		    <constructor-result target-class="domain.AdSetWithStat">
+		        <column name="ADS_ID" class="java.lang.Long"/>
+		        <column name="ADS_NAME"/>
+		        <column name="IMPRESSIONS" class="java.lang.Integer"/>
+		    </constructor-result>
+		</sql-result-set-mapping>         
+        <sql-result-set-mapping name="getAdSetsWithStatMapping.count">
+            <column-result name="CNT" />
+        </sql-result-set-mapping>
+    </entity>             
+</entity-mappings>
