@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import domain.Campaign;
 import domain.CampaignRepository;
 import domain.CampaignWithStat;
+import domain.CampaignWithStatJdbcTemplateRepository;
 import domain.CampaignWithStatRepository;
 
 import java.util.List;
@@ -27,6 +28,9 @@ public class CampaignServiceImpl implements CampaignService {
 
 	@Autowired
 	private CampaignWithStatRepository campaignWithStatRepository;
+
+	@Autowired
+	private CampaignWithStatJdbcTemplateRepository campaignWithStatJdbcTemplateRepository;
 	
 	@Override
 	public List<Campaign> findAll() {
@@ -43,6 +47,12 @@ public class CampaignServiceImpl implements CampaignService {
 	public Page<CampaignWithStat> getCampaingsWithStat(String sortField, Sort.Direction direction, int page, int size) {
 		Pageable pageable = PageRequest.of(0, 2);
 		return this.campaignWithStatRepository.getCampaingsWithStat(sortField, direction.name(), pageable);
+	}
+	
+	@Override
+	public Page<CampaignWithStat> getCampaingsWithStatJdbcTemplate(String sortField, String sortDir, int page, int size) {
+		Pageable pageable = PageRequest.of(page, Integer.MAX_VALUE, new Sort(Sort.Direction.valueOf(sortDir.toUpperCase()), sortField));
+		return this.campaignWithStatJdbcTemplateRepository.getCampaignsWithStat(pageable);
 	}
 	
 	

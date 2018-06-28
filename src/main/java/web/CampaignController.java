@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import domain.Campaign;
@@ -36,12 +37,27 @@ public class CampaignController {
     }
 
     //test pagination and sorting
+    /*
     @RequestMapping(value = "/backend/campaignswithstat/{page}", method = RequestMethod.GET)
     public Page<CampaignWithStat> getCampaingsWithStat(@PathVariable("page") int page) {
     	Pageable pageable = PageRequest.of(page, 2, new Sort(Sort.Direction.DESC, "name"));
     	//return campaignService.getCampaingsWithStat(pageable);
     	return null;
-    }	 
+    }
+    */
+    
+    @RequestMapping(value = "/backend//campaigns-paged", method = RequestMethod.GET)
+    public Page<CampaignWithStat> getCampaingsPaged(
+    		@RequestParam(value="page", defaultValue="0") int page,
+    		@RequestParam(value="sortField", defaultValue="CAM_ID") String sortField,
+    		@RequestParam(value="sortDir", defaultValue="ASC") String sortDir
+    		) {
+    	return campaignService.getCampaingsWithStatJdbcTemplate(sortField, sortDir, page, 2);
+    }
+    
+    
+    //Page<CampaignWithStat> campaignWithStatPage = campaignService.getCampaingsWithStatJdbcTemplate("CAM_NAME", "DESC", 1, 2);
+    
     
     @RequestMapping(value = "/backend/campaigns", method = RequestMethod.POST)
     public Campaign save(@RequestBody Campaign campaign) {

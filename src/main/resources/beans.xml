@@ -20,6 +20,16 @@
          
          <jpa:repositories base-package="domain" />
          
+         <!-- 
+           <bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+           	<property name="dataSource" ref="dataSource"/>
+           </bean>
+           -->
+           
+   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+      <constructor-arg ref="dataSource"/>
+   </bean>           
+         
          <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
          	<!-- 
          	<property name="mappingFileNamePattern" value="**/*Mapping.xml" />

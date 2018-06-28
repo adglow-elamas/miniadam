@@ -18,12 +18,20 @@ myApp
 		  method: 'GET',
 		  //url: 'fake-ajax/get-campaigns.html'
 		  url: '/backend/campaignswithstat'
+		  //url: '/backend/campaigns-paged?page=0&sortField=CAM_ID&sortDir=DESC'
 		}).then(function successCallback(response) {
 			console.log("[HomeController] successCallback");
+			//console.log("[HomeController] response.data.content: ");
+			//console.log(response.data.content);
 			var campaign;
-			for(var i in response.data){
+			var campaigns = response.data;
+			//var campaigns = response.data.content;
+			//for(var i in response.data){
+			//for(var i in response.data.content){
+			for(var i in campaigns){
 				campaign = new Campaign();
-				campaign.parseFromObject(response.data[i]);
+				//campaign.parseFromObject(response.data[i]);
+				campaign.parseFromObject(campaigns[i]);
 				if(campaign != null){
 					$scope.model.campaigns.push(campaign);
 				}

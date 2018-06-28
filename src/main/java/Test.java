@@ -64,7 +64,8 @@ public class Test {
 			//Page<CampaignWithStat> campaignWithStatPage = campaignService.getCampaingsWithStat(pageableCampaigns);
 			//Page<CampaignWithStat> campaignWithStatPage = campaignService.getCampaingsWithStat(pageableCampaigns, sort);
 			//logger.info("[m:main]: campaignWithStatPage: " + campaignWithStatPage);			
-			Page<CampaignWithStat> campaignWithStatPage = campaignService.getCampaingsWithStat("CAM_NAME", Sort.Direction.DESC, 0, 2);
+			//Page<CampaignWithStat> campaignWithStatPage = campaignService.getCampaingsWithStat("CAM_NAME", Sort.Direction.DESC, 0, 2);
+			Page<CampaignWithStat> campaignWithStatPage = campaignService.getCampaingsWithStatJdbcTemplate("CAM_NAME", "DESC", 1, 2);
 			logger.info("[m:main]: campaignWithStatPage.getSize(): " + campaignWithStatPage.getSize());
 			logger.info("[m:main]: campaignWithStatPage json: " + mapper.writeValueAsString(campaignWithStatPage));
 			

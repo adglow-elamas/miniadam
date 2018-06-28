@@ -17,6 +17,7 @@ public interface CampaignService {
 	
 	//no se como coger el campo del sort asi que lo paso fuera
 	public Page<CampaignWithStat> getCampaingsWithStat(String sortField, Sort.Direction direction, int page, int size);
+	public Page<CampaignWithStat> getCampaingsWithStatJdbcTemplate(String sortField, String sortDir, int page, int size);
 	//public Page<CampaignWithStat> getCampaingsWithStat(Pageable pageable);
 	//public Page<CampaignWithStat> getCampaingsWithStat(Pageable pageable, Sort sort);
 	
